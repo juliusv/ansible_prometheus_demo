@@ -1,0 +1,10 @@
+*.swp
+*.swo
+*.idea
+.molecule
+.cache
+__pycache__/
+*.retry
+roles/*
+!roles/requirements.yml
+ara*

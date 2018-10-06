@@ -1,0 +1,72 @@
+---
+prometheus_web_external_url: "http://{{ ansible_host }}:9090"
+prometheus_storage_retention: "14d"
+
+prometheus_alertmanager_config:
+  - scheme: http
+    static_configs:
+      - targets:
+          "{{ groups['alertmanager'] | map('extract', hostvars, ['ansible_host']) | map('regex_replace', '$', ':9093') | list }}"
+
+prometheus_scrape_configs:
+- job_name: "prometheus"
+  metrics_path: "/metrics"
+  static_configs:
+  - targets:
+      "{{ groups['prometheus'] | map('extract', hostvars, ['ansible_host']) | map('regex_replace', '$', ':9090') | list }}"
+- job_name: "node"
+  static_configs:
+  - targets:
+      "{{ groups['all'] | map('extract', hostvars, ['ansible_host']) | map('regex_replace', '$', ':9100') | list }}"
+- job_name: "alertmanager"
+  static_configs:
+  - targets:
+      "{{ groups['alertmanager'] | map('extract', hostvars, ['ansible_host']) | map('regex_replace', '$', ':9093') | list }}"
+- job_name: "pushgateway"
+  static_configs:
+  - targets:
+      "{{ groups['pushgateway'] | map('extract', hostvars, ['ansible_host']) | map('regex_replace', '$', ':9091') | list }}"
+- job_name: "grafana"
+  static_configs:
+  - targets:
+      "{{ groups['grafana'] | map('extract', hostvars, ['ansible_host']) | map('regex_replace', '$', ':3000') | list }}"
+
+alertmanager_external_url: "http://{{ ansible_host }}:9093"
+alertmanager_route:
+  group_by: ['alertname', 'cluster', 'service']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  receiver: slack
+alertmanager_receivers:
+- name: slack
+  slack_configs:
+  - api_url: "https://hooks.slack.com/services/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"
+    channel: '#alertmanager'
+    send_resolved: true
+
+grafana_security:
+  admin_user: admin
+  admin_password: "{{ vault_grafana_password }}"
+
+grafana_auth:
+  anonymous:
+    org_name: "Main Org."
+    org_role: Viewer
+
+grafana_datasources:
+  - name: "Prometheus"
+    type: "prometheus"
+    access: "proxy"
+    url: "http://{{ groups['prometheus'].0.ansible_host }}:9090"
+    isDefault: true
+grafana_dashboards:
+  - dashboard_id: '1860'
+    revision_id: '12'
+    datasource: '{{ grafana_datasources.0.name }}'
+  - dashboard_id: '3662'
+    revision_id: '2'
+    datasource: '{{ grafana_datasources.0.name }}'
+  - dashboard_id: '4271'
+    revision_id: '4'
+    datasource: '{{ grafana_datasources.0.name }}'

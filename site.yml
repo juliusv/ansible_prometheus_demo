@@ -1,0 +1,34 @@
+- name: Deploy node_exporter
+  hosts: all
+  roles:
+    - cloudalchemy.node-exporter
+  tags:
+    - node_exporter
+
+- name: Deploy Prometheus server
+  hosts: prometheus
+  roles:
+    - cloudalchemy.prometheus
+  tags:
+    - prometheus
+
+- name: Deploy Alertmanager
+  hosts: alertmanager
+  roles:
+    - cloudalchemy.alertmanager
+  tags:
+    - alertmanager
+
+- name: Deploy Pushgateway
+  hosts: pushgateway
+  roles:
+    - cloudalchemy.pushgateway
+  tags:
+    - pushgateway
+
+- name: Deploy Grafana
+  hosts: grafana
+  roles:
+    - cloudalchemy.grafana
+  tags:
+    - grafana

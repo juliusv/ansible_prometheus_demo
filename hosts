@@ -1,0 +1,16 @@
+prometheus-a ansible_host=<prometheus-a-host> ansible_user=root
+prometheus-b ansible_host=<prometheus-b-host> ansible_user=root
+shared ansible_host=<shared-host> ansible_user=root
+
+[prometheus]
+prometheus-a
+prometheus-b
+
+[alertmanager]
+shared
+
+[pushgateway]
+shared
+
+[grafana]
+shared

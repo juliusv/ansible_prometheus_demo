@@ -1,0 +1,5 @@
+- name: cloudalchemy.node-exporter
+- name: cloudalchemy.prometheus
+- name: cloudalchemy.alertmanager
+- name: cloudalchemy.pushgateway
+- name: cloudalchemy.grafana
