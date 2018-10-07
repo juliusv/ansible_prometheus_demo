@@ -75,9 +75,9 @@ You can find the default settings for each of the component roles here:
 - [Pushgateway](https://github.com/cloudalchemy/ansible-pushgateway/blob/master/defaults/main.yml)
 - [Grafana](https://github.com/cloudalchemy/ansible-grafana/blob/master/defaults/main.yml)
 
-All variable overrides are stored in the [`group_vars/all/vars`](group_vars/all/vars) directory in this repository. Change these to fit your needs.
+All variable overrides are stored in the [`group_vars/all/vars`](group_vars/all/vars) file in this repository. Change these to fit your needs.
 
-You may also choose to split up the `group_vars/all` directory into multiple `group_vars/<group_name>` directories to isolate settings for each group into individual directories and files.
+You may also choose to split up the `group_vars/all` directory into multiple `group_vars/<group_name>` directories to isolate settings for each g group into individual directories and files.
 
 ## Syntax-check changes
 
