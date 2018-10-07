@@ -2,11 +2,18 @@
 prometheus_web_external_url: "http://{{ ansible_host }}:9090"
 prometheus_storage_retention: "14d"
 
+prometheus_external_labels:
+  replica: "{{ ansible_fqdn | default(ansible_host) | default(inventory_hostname) }}"
+
 prometheus_alertmanager_config:
   - scheme: http
     static_configs:
       - targets:
           "{{ groups['alertmanager'] | map('extract', hostvars, ['ansible_host']) | map('regex_replace', '$', ':9093') | list }}"
+
+prometheus_alert_relabel_configs:
+  - action: labeldrop
+    regex: replica
 
 prometheus_scrape_configs:
 - job_name: "prometheus"
