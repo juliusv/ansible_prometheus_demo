@@ -65,7 +65,7 @@ grafana_datasources:
   - name: "Prometheus"
     type: "prometheus"
     access: "proxy"
-    url: "http://{{ groups['prometheus'].0.ansible_host }}:9090"
+    url: "http://{{ hostvars[groups['prometheus'].0].ansible_host }}:9090"
     isDefault: true
 grafana_dashboards:
   - dashboard_id: '1860'
