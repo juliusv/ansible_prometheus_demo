@@ -65,6 +65,20 @@ If everything worked, you should now be able to access:
 - Alertmanager on port 9093
 - Grafana on port 3000
 
+### Customizing the configuration
+
+You can find the default settings for each of the component roles here:
+
+- [Prometheus](https://github.com/cloudalchemy/ansible-prometheus/blob/master/defaults/main.yml)
+- [Alertmanager](https://github.com/cloudalchemy/ansible-alertmanager/blob/master/defaults/main.yml)
+- [Node Exporter](https://github.com/cloudalchemy/ansible-node-exporter/blob/master/defaults/main.yml)
+- [Pushgateway](https://github.com/cloudalchemy/ansible-pushgateway/blob/master/defaults/main.yml)
+- [Grafana](https://github.com/cloudalchemy/ansible-grafana/blob/master/defaults/main.yml)
+
+All variable overrides are stored in the [`group_vars/all/vars`](group_vars/all/vars) directory in this repository. Change these to fit your needs.
+
+You may also choose to split up the `group_vars/all` directory into multiple `group_vars/<group_name>` directories to isolate settings for each group into individual directories and files.
+
 ## Syntax-check changes
 
 If you have made any local changes to the Ansible files, you can syntax-check them like this:
