@@ -31,7 +31,7 @@ SSH into the Ansible host with agent forwarding:
 
 Install Ansible and prerequisites:
 
-    sudo apt-get -qq update
+    apt-get -qq update
     apt install python-pip
     pip install ansible jmespath
 
@@ -39,7 +39,7 @@ Install Ansible and prerequisites:
 
 Clone this demo setup repository:
 
-    git clone git@github.com:juliusv/ansible_prometheus_demo
+    git clone https://github.com/juliusv/ansible_prometheus_demo
     cd ansible_prometheus_demo
 
 ### Install CloudAlchemy Prometheus playbooks
